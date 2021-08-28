@@ -7,9 +7,17 @@ const AllQuotes = ({ match, history }) => {
 
     const [allQuotes, setallQuotes] = useState([])
 
+    console.log(match.params.name)
+
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axiosApi.get('quotes.json');
+            let url = 'quotes.json'
+
+            if(match.params.name) {
+                url += `?orderBy="category"&equalTo=${match.params.name}`
+            }
+
+            const response = await axiosApi.get(url);
             const allQuotes = Object.keys(response.data).map(id => ({
                 ...response.data[id],
                 id,
@@ -18,7 +26,20 @@ const AllQuotes = ({ match, history }) => {
         };
 
         fetchData().catch(console.error);
-    }, []);
+    }, [match.params.name]);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await axiosApi.get('quotes.json');
+    //         const allQuotes = Object.keys(response.data).map(id => ({
+    //             ...response.data[id],
+    //             id,
+    //         }))
+    //         setallQuotes(allQuotes);
+    //     };
+
+    //     fetchData().catch(console.error);
+    // }, []);
 
     const deleteQuote = async () => {
         await axiosApi.delete('quotes' + match.params.id + '.json');
@@ -29,9 +50,9 @@ const AllQuotes = ({ match, history }) => {
         <>
             {allQuotes.map(quote => (
                 <Card style={{ margin: '2rem' }} className='mx-5' key={quote.id} >
-                    <Card.Header> --- {quote.addQuote.author}</Card.Header>
+                    <Card.Header> Quote by: {quote.author}</Card.Header>
                     <Card.Body>
-                        <Card.Text>{quote.addQuote.text}</Card.Text>
+                        <Card.Text>{quote.text}</Card.Text>
                         <Row className='d-flex justify-content-between'>
                             <Col>
                                 <NavLink to={'/post' + quote.id}><Button variant="outline-secondary" >Edit Quote</Button></NavLink>

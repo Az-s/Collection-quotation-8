@@ -26,7 +26,7 @@ const AddQuote = ({ history }) => {
         setLoading(true);
 
         try {
-            await axiosApi.post('/quotes.json', { addQuote })
+            await axiosApi.post('/quotes.json', { ...addQuote })
         } finally {
             setLoading(false);
             history.replace('/');
@@ -42,11 +42,11 @@ const AddQuote = ({ history }) => {
                 onChange={onInputChange}
             >
                 <option>Open this select menu</option>
-                <option value={'Star Wars'}>Star Wars</option>
-                <option value={'Famous people'}>Famous people</option>
-                <option value={'Saying'}>Saying</option>
-                <option value={'Humor'}>Humor</option>
-                <option value={'Motivational'}>Motivational</option>
+                <option value={'star-wars'}>Star Wars</option>
+                <option value={'famous-people'}>Famous people</option>
+                <option value={'saying'}>Saying</option>
+                <option value={'humor'}>Humor</option>
+                <option value={'motivational'}>Motivational</option>
             </Form.Select>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Author</Form.Label>
