@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
 import axiosApi from '../../axiosApi';
 
-const EditQuote = ({ match, history}) => {
+const EditQuote = ({ match, history }) => {
 
     const [editQuote, setEditQuote] = useState(null);
-    
+
     const [addQuote, setaddQuote] = useState({
         author: '',
         category: '',
@@ -21,6 +21,7 @@ const EditQuote = ({ match, history}) => {
         fetchData().catch(console.error);
     }, [match.params.id]);
 
+
     const onInputChange = (e) => {
         const { name, value } = e.target;
         setaddQuote(prev => ({
@@ -29,18 +30,9 @@ const EditQuote = ({ match, history}) => {
         }))
     };
 
-    // const createQuote = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         await axiosApi.post('/quotes.json', { ...addQuote });
-    //     } finally {
-    //         history.replace('/');
-    //     }
-    // }
-
-    const editQuotes = async () => {
-        await axiosApi.put('/quotes/' + match.params.id + '.json' , {...addQuote});
+    const editQuotes = async (e) => {
+        e.preventDefault();
+        await axiosApi.put('/quotes/' + match.params.id + '.json', { ...addQuote });
         history.replace('/');
     };
 
@@ -69,7 +61,7 @@ const EditQuote = ({ match, history}) => {
                             name='author'
                             placeholder='auther'
                             value={editQuote.author}
-                            onChange={onInputChange}
+                            onChange={e => e.target.value}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -78,7 +70,7 @@ const EditQuote = ({ match, history}) => {
                             type="text"
                             name='text'
                             placeholder='text'
-                            value={editQuote.text}
+                            value={editQuote.author}
                             onChange={onInputChange}
                             as="textarea"
                             rows={3}
