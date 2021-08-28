@@ -1,7 +1,7 @@
 .navbar-nav  a{
     color: #fff;
     text-decoration: none;
-    padding: 5px;  
+    padding: 7px;
   }
   
   .navbar-nav  a:hover {
@@ -11,5 +11,5 @@
   .navbar-brand a{
     color: #fff;
     text-decoration: none;
-    padding: 5px;  
+    padding-left: 7rem;  
   }

@@ -1,10 +1,11 @@
-import React , {useState ,useEffect}from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
 import axiosApi from '../../axiosApi';
 
-const EditQuote = ({ match , history }) => {
+const EditQuote = ({ match, history}) => {
 
-    const [editQuote , setEditQuote] = useState(null);
+    const [editQuote, setEditQuote] = useState(null);
+    
     const [addQuote, setaddQuote] = useState({
         author: '',
         category: '',
@@ -28,25 +29,30 @@ const EditQuote = ({ match , history }) => {
         }))
     };
 
-    const createQuote = async (e) => {
-        e.preventDefault();
+    // const createQuote = async (e) => {
+    //     e.preventDefault();
 
-        try {
-            await axiosApi.post('/quotes.json', { ...addQuote })
-        } finally {
-            history.replace('/');
-        }
-    }
+    //     try {
+    //         await axiosApi.post('/quotes.json', { ...addQuote });
+    //     } finally {
+    //         history.replace('/');
+    //     }
+    // }
 
-    return (
+    const editQuotes = async () => {
+        await axiosApi.put('/quotes/' + match.params.id + '.json' , {...addQuote});
+        history.replace('/');
+    };
+
+    return editQuote && (
         <>
             <Card style={{ width: '90%', marginTop: '5rem' }} className="mx-5">
-                <Card.Header>Add new Quote</Card.Header>
-                <Form className='p-5'>
+                <Card.Header>Edit Quote</Card.Header>
+                <Form className='p-5' onSubmit={editQuotes}>
                     <Form.Select aria-label="Floating label select example"
                         as="select"
                         name='category'
-                        value={addQuote.category}
+                        value={editQuote.category}
                         onChange={onInputChange}
                     >
                         <option>Open this select menu</option>
@@ -61,8 +67,8 @@ const EditQuote = ({ match , history }) => {
                         <Form.Control
                             type="text"
                             name='author'
-                            placeholder="Author"
-                            value={addQuote.author}
+                            placeholder='auther'
+                            value={editQuote.author}
                             onChange={onInputChange}
                         />
                     </Form.Group>
@@ -71,15 +77,15 @@ const EditQuote = ({ match , history }) => {
                         <Form.Control
                             type="text"
                             name='text'
-                            placeholder="Quote Text"
-                            value={addQuote.text}
+                            placeholder='text'
+                            value={editQuote.text}
                             onChange={onInputChange}
                             as="textarea"
                             rows={3}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                        Save
                     </Button>
                 </Form>
             </Card>

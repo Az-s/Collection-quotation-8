@@ -5,5 +5,6 @@
     transition: .5s ease;
 }
 .nav a:hover {
-    transform: translateX(-15px);
+    color: #c6cacc;
+    transform: translateX(-25px);
 }   
