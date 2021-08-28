@@ -1,60 +1,73 @@
 import React, { useState } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
 import Spinners from '../Spinners/Spinners';
+import axiosApi from '../../axiosApi';
 
 const AddQuote = ({ history }) => {
 
     const [addQuote, setaddQuote] = useState({
-        title: '',
-        description: '',
+        author: '',
+        category: '',
+        text: '',
     });
 
     const [loading, setLoading] = useState(false);
 
     const onInputChange = (e) => {
         const { name, value } = e.target;
-        // const name = e.target.name
-        // const value = e.target.value
-        setPost(prev => ({
+        setaddQuote(prev => ({
             ...prev,
             [name]: value,
         }))
     };
 
-    const createPost = async (e) => {
+    const createQuote = async (e) => {
         e.preventDefault();
-        console.log(post);
         setLoading(true);
 
         try {
-            await axiosApi.post('/posts.json', { post })
+            await axiosApi.post('/quotes.json', { addQuote })
         } finally {
             setLoading(false);
             history.replace('/');
         }
     }
 
-
     let form = (
-        <Form className='p-5' onSubmit={createPost}>
+        <Form className='p-5' onSubmit={createQuote}>
+            <Form.Select aria-label="Floating label select example"
+                as="select"
+                name='category'
+                value={addQuote.category}
+                onChange={onInputChange}
+            >
+                <option>Open this select menu</option>
+                <option value={'Star Wars'}>Star Wars</option>
+                <option value={'Famous people'}>Famous people</option>
+                <option value={'Saying'}>Saying</option>
+                <option value={'Humor'}>Humor</option>
+                <option value={'Motivational'}>Motivational</option>
+            </Form.Select>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Title</Form.Label>
+                <Form.Label>Author</Form.Label>
                 <Form.Control
                     type="text"
-                    name='title'
-                    placeholder="Title"
-                    value={post.title}
+                    name='author'
+                    placeholder="Author"
+                    value={addQuote.author}
                     onChange={onInputChange}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Quote text</Form.Label>
                 <Form.Control
                     type="text"
-                    name='description'
-                    placeholder="Description"
-                    value={post.description}
+                    name='text'
+                    placeholder="Quote Text"
+                    value={addQuote.text}
                     onChange={onInputChange}
+                    as="textarea"
+                    rows={3}
                 />
             </Form.Group>
             <Button variant="primary" type="submit">
@@ -69,8 +82,8 @@ const AddQuote = ({ history }) => {
 
     return (
         <>
-            <Card style={{ width: '100%', marginTop: '5rem' }}>
-                <Card.Header>Add new post</Card.Header>
+            <Card style={{ width: '90%', marginTop: '5rem' }} className="mx-5">
+                <Card.Header>Add new Quote</Card.Header>
                 {form}
             </Card>
         </>
