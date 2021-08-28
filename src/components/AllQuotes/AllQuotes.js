@@ -7,7 +7,7 @@ const AllQuotes = ({ match, history }) => {
 
     const [allQuotes, setallQuotes] = useState([])
 
-    const fetchData = Callback(async () => {
+    const fetchData = useCallback(async () => {
         let url = 'quotes.json'
 
         if (match.params.name) {
