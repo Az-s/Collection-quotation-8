@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import axiosApi from '../../axiosApi';
@@ -7,7 +7,7 @@ const AllQuotes = ({ match, history }) => {
 
     const [allQuotes, setallQuotes] = useState([])
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         let url = 'quotes.json'
 
         if (match.params.name) {
@@ -20,7 +20,7 @@ const AllQuotes = ({ match, history }) => {
             id,
         }))
         setallQuotes(allQuotes);
-    };
+    }, [match.params.name]);
 
     useEffect(() => {
         fetchData().catch(console.error);
@@ -53,7 +53,8 @@ const AllQuotes = ({ match, history }) => {
                         <Card.Text>{quote.text}</Card.Text>
                         <Row className='d-flex justify-content-between'>
                             <Col>
-                                <NavLink to={'/post' + quote.id}>
+                                <NavLink
+                                    to={'/quotes/' + quote.id + '/edit'}>
                                     <Button variant="outline-secondary" >
                                         Edit Quote
                                     </Button>

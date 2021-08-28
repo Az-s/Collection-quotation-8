@@ -4,6 +4,7 @@ import NavBar from './components/Navbar/NavBar';
 import AddQuote from './components/AddQuote/AddQuote';
 import Links from './components/Links/Links';
 import AllQuotes from './components/AllQuotes/AllQuotes';
+import EditQuote from './components/EditQuote/EditQuote';
 import './App.css';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Route exact path='/' component={AllQuotes} />
             <Route path='/add-quote' component={AddQuote} />
             <Route path='/quotes/:name' component={AllQuotes} />
+            <Route path='/quotes/:id/edit' component={EditQuote} />
           </Col>
         </Row>
       </Router>
