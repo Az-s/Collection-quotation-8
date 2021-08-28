@@ -1,0 +1,9 @@
+.nav {
+    min-height: 100vh;
+}
+.nav a {
+    transition: .5s ease;
+}
+.nav a:hover {
+    transform: translateX(-15px);
+}   

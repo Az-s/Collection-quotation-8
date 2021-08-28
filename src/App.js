@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import NavBar from './components/Navbar/NavBar';
+import AddQuote from './components/AddQuote/AddQuote';
+import Links from './components/Links/Links';
+import { Row , Col} from 'react-bootstrap';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <NavBar />
+        <Row>
+          <Col sm={2}>
+            <Links />
+          </Col>
+          <Col sm={10}>
+          </Col>
+        </Row>
+        <Route exact path='/' component={AddQuote} />
+      </Router>
     </div>
   );
 }
