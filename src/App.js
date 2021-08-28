@@ -18,7 +18,7 @@ const App = () => {
           <Col sm={10}>
             <Route exact path='/' component={AllQuotes} />
             <Route path='/add-quote' component={AddQuote} />
-            <Route path='/quotes/name' component={AllQuotes} />
+            <Route path='/quotes/:name' component={AllQuotes} />
           </Col>
         </Row>
       </Router>

@@ -7,14 +7,12 @@ const AllQuotes = ({ match, history }) => {
 
     const [allQuotes, setallQuotes] = useState([])
 
-    console.log(match.params.name)
-
     useEffect(() => {
         const fetchData = async () => {
             let url = 'quotes.json'
 
             if(match.params.name) {
-                url += `?orderBy="category"&equalTo=${match.params.name}`
+                url += `?orderBy="category"&equalTo="${match.params.name}"`
             }
 
             const response = await axiosApi.get(url);
